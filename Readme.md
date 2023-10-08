@@ -47,7 +47,7 @@ To run and test the application logic you can execute the next command in termin
 python -m app.cli.account_summary --file '{csv-file-path} --email "{destination@domain.com}"
 ```
 
-Where ``{csv-file-path}`` is the route to CSV file to process and ``{destination@domain.com}`` is the destination email address to send the final report (account summary information). Substitute those values in your terminal and execute the command. If you wants more details or help about the command you would run the following command:
+Where ``{csv-file-path}`` is the route to CSV file to process and ``{destination@domain.com}`` is the destination email address to send the final report (account summary information). Substitute those values in your terminal and execute the command. If you wants more details or help about the command you would run the following instruction:
 
 ```bash
 python -m app.cli.account_summary --help
@@ -60,7 +60,7 @@ You should run the following command in terminal:
 uvicorn main:app
 ```
 
-It will create a new http server that listen incoming requests. To send a CSV file you can run the next cURL command:
+It will create an http server that listen incoming requests. To send a CSV file you can run the next cURL command:
 
 ```bash
 curl -v 'POST' \
@@ -102,7 +102,7 @@ Now, I did create two interfaces to execute the logic: an http endpoint that is 
 
 I'm a guy that wants create a robust code. So then, the core logic was created using TDD practice and you can check the tests used to validate the correct functionality in ``tests`` directory.
 
-If you wants check and run the test, please install the required modules contained in requirements-dev.txt file using pip. Use the next command in a virtual environment active session as guide:
+If you wants check and run the test, please install the required modules contained in ``requirements-dev.txt`` file using ``pip``. Use the next command in a virtual environment active session as guide:
 
 ```bash
 pip install -r requirements-dev.txt
