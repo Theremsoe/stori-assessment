@@ -13,7 +13,7 @@ services:
         build:
             context: ..
             dockerfile: .infra/dockerfiles/dockerfile
-            target: faskapi-server
+            target: fastapi-server
         networks:
             - network
         ports:
