@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+    application:
+        environment:
+            - MAIL_USER
+            - MAIL_PASSWORD
+            - DB_HOST=database
+            - DB_DATABASE=forge
+            - DB_USERNAME=forge
+            - DB_PASSWORD=forge
+            - WAIT_HOSTS=database:5432
+        container_name: Http-Server
+        build:
+            context: ..
+            dockerfile: .infra/dockerfiles/dockerfile
+            target: faskapi-server
+        networks:
+            - network
+        ports:
+            - 8000:8000
+        depends_on:
+            - database
+        links:
+            - database
+    database:
+        environment:
+            POSTGRES_DB: "forge"
+            POSTGRES_USER: "forge"
+            POSTGRES_PASSWORD: "forge"
+        container_name: Database-Server
+        image: postgres:16.0
+        networks:
+            - network
+        ports:
+            - 5432:5432
+        volumes:
+            - ./postgres-data:/var/lib/postgresql/data
+networks:
+    network:
+        driver: bridge

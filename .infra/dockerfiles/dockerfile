@@ -1,0 +1,19 @@
+FROM python:3.10-slim as faskapi-server
+
+WORKDIR /var/www
+
+RUN apt-get update && apt-get install -y locales
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
+
+ENV LC_ALL="en_US.UTF-8"
+ENV LC_CTYPE="en_US.UTF-8"
+
+COPY --chown=www-data:www-data . /var/www/
+COPY --chown=www-data:www-data --from=ghcr.io/ufoscout/docker-compose-wait:latest /wait /wait
+
+#### Install al packages and modules
+RUN python3 -m venv venv
+RUN pip3 install -r requirements.txt
+RUN pip3 install "hypercorn[trio]"
+
+CMD /wait && hypercorn main:app --worker-class trio --bind '0.0.0.0:8000'

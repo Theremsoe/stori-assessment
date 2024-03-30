@@ -1,0 +1,12 @@
+version: 1.0
+runtime: python3
+build:
+  commands:
+    build:
+      - pip3 install -r requirements.txt
+      - pip3 install "hypercorn[trio]"
+run:
+  runtime-version: 3.10
+  command: hypercorn main:app --worker-class trio --bind '0.0.0.0:8000'
+  network:
+    port: 8000
